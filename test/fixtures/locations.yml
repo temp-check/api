@@ -1,15 +1,10 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  address: 1 market st s.f.,ca
-  postalcode: nil
-  lat: nil
-  lng: nil
-  error: nil
+  address: 1 market st sf
 
 two:
-  address: 94117
-  postalcode: nil
-  lat: nil
-  lng: nil
-  error: nil
+  address: 20 Centrak Park, New York, NY
+
+three:
+  address: 87104

@@ -2,7 +2,7 @@ require "test_helper"
 
 class LocationsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @location = locations(:one)
+    @location = locations([:one, :two, :three].sample)
   end
 
   test "should get index" do
@@ -12,7 +12,7 @@ class LocationsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create location" do
     assert_difference("Location.count") do
-      post locations_url, params: { location: { error: @location.error, lat: @location.lat, lng: @location.lng, postalcode: @location.postalcode, address: @location.address } }, as: :json
+      post locations_url, params: { location: { address: @location.address } }, as: :json
     end
 
     assert_response :created
