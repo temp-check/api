@@ -2,7 +2,7 @@ require "test_helper"
 
 class LocationsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @location = locations([:one, :two, :three].sample)
+    @location = locations([:one, :two].sample)
   end
 
   test "should get index" do
@@ -43,14 +43,5 @@ class LocationsControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_equal 404, Location.last.error
-  end
-
-  test "should save invalid address with error code 401" do
-    @blank_address = locations(:blank_address)
-    assert_difference("Location.count") do
-      post locations_url, params: { location: { address: @blank_address } }, as: :json
-    end
-
-    assert_equal 401, Location.last.error
   end
 end

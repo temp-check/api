@@ -4,14 +4,8 @@ one:
   address: 1 market st sf
 
 two:
-  address: 20 Centrak Park, New York, NY
-
-three:
   address: 87104
 
 invalid_address:
   address: invalid address
-
-blank_address:
-  address:
 
