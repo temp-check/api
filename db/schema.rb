@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema[7.1].define(version: 2023_11_26_180756) do
   create_table "locations", force: :cascade do |t|
-    t.text "query"
+    t.text "address"
     t.integer "postalcode"
     t.decimal "lat", precision: 10, scale: 6
     t.decimal "lng", precision: 10, scale: 6

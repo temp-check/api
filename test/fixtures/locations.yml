@@ -1,15 +1,15 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  query: MyText
-  postalcode: 1
-  lat: 9.99
-  lng: 9.99
-  error: 1
+  address: 1 market st s.f.,ca
+  postalcode: nil
+  lat: nil
+  lng: nil
+  error: nil
 
 two:
-  query: MyText
-  postalcode: 1
-  lat: 9.99
-  lng: 9.99
-  error: 1
+  address: 12 Larkin St, San Francisco, CA 94102
+  postalcode: nil
+  lat: nil
+  lng: nil
+  error: nil
