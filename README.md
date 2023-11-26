@@ -2,9 +2,20 @@
 
 ## Description
 
-This is a simple API service that lazily geocodes input addresses using [PositionStack](ttps://positionstack.com).
+A simple API service that lazily geocodes input addresses using [PositionStack](https://positionstack.com).
 
-The stored coordinates are used to lazily fetch the 10-day forecast from [WeatherAPI](https://www.weatherapi.com).
+Stored geocoded addresses are used to lazily refresh the 10-day forecast using [WeatherAPI](https://www.weatherapi.com).
+
+All successful forecast responses are cached for 30 minutes.
+
+All responses are JSON and follow the following format:
+
+```json
+{
+  "data": {},
+  "errors": []
+}
+```
 
 ## Requirements
 
