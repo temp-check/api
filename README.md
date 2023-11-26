@@ -2,7 +2,9 @@
 
 ## Description
 
-This is a simple API service that lazily geocodes input addresses using [PositionStack](ttps://positionstack.com) and uses the lat/lng to then lazily fetch the 10-day forecast from [WeatherAPI](https://www.weatherapi.com).
+This is a simple API service that lazily geocodes input addresses using [PositionStack](ttps://positionstack.com).
+
+The stored coordinates are used to lazily fetch the 10-day forecast from [WeatherAPI](https://www.weatherapi.com).
 
 ## Requirements
 
@@ -10,3 +12,5 @@ This is a simple API service that lazily geocodes input addresses using [Positio
 - [Docker Compose](https://docs.docker.com/compose/install/)
 
 ## Usage
+
+...
