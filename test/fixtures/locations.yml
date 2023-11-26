@@ -8,3 +8,10 @@ two:
 
 three:
   address: 87104
+
+invalid_address:
+  address: invalid address
+
+blank_address:
+  address:
+
