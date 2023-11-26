@@ -5,7 +5,7 @@ class CreateLocations < ActiveRecord::Migration[7.1]
       t.integer :postalcode
       t.decimal :lat, precision: 10, scale: 6
       t.decimal :lng, precision: 10, scale: 6
-      t.integer :error, default: nil
+      t.integer :geocode_error, default: nil
       t.timestamps
     end
   end

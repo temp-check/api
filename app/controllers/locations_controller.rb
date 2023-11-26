@@ -16,7 +16,6 @@ class LocationsController < ApplicationController
   # POST /locations
   def create
     @location = Location.new(location_params)
-
     if @location.save
       render json: @location, status: :created, location: @location
     else
@@ -46,6 +45,6 @@ class LocationsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def location_params
-      params.require(:location).permit(:address, :postalcode, :lat, :lng, :error)
+      params.require(:location).permit(:address)
     end
 end
