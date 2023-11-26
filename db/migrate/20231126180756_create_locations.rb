@@ -6,7 +6,6 @@ class CreateLocations < ActiveRecord::Migration[7.1]
       t.decimal :lat, precision: 10, scale: 6
       t.decimal :lng, precision: 10, scale: 6
       t.integer :error
-
       t.timestamps
     end
   end

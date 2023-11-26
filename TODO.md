@@ -8,3 +8,4 @@
 - [ ] Checks store for forecast data matching postalcode using [WeatherAPI](https://www.weatherapi.com/my/)
 - [ ] Lazily remove stored forecast data if the postalcode is requested again and the data is older than 30 minutes
 - [ ] Fetches forecast data from weather api if not found in store
+- [ ] Use ElasticSearch to search `locations`
