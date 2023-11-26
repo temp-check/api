@@ -1,24 +1,12 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Description
 
-Things you may want to cover:
+This is a simple API service that lazily geocodes input addresses using [PositionStack](ttps://positionstack.com) and uses the lat/lng to then lazily fetch the 10-day forecast from [WeatherAPI](https://www.weatherapi.com).
 
-* Ruby version
+## Requirements
 
-* System dependencies
+- [Docker](https://docs.docker.com/get-docker/)
+- [Docker Compose](https://docs.docker.com/compose/install/)
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Usage
