@@ -2,7 +2,7 @@
 
 ## Description
 
-A simple API service that lazily geocodes input addresses using [PositionStack](https://positionstack.com).
+A simple API service that lazily geocodes input addresses using [RubyGeocoder](http://www.rubygeocoder.com).
 
 Stored geocoded addresses are used to lazily refresh the 10-day forecast using [WeatherAPI](https://www.weatherapi.com).
 

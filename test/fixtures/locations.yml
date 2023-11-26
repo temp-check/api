@@ -8,7 +8,7 @@ one:
   error: nil
 
 two:
-  address: 12 Larkin St, San Francisco, CA 94102
+  address: 94117
   postalcode: nil
   lat: nil
   lng: nil
