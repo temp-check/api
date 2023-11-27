@@ -2,7 +2,7 @@ require "test_helper"
 
 class PostalCodesControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @postal_code = postal_codes(:one)
+    @postal_code = postal_codes([87104, 90210].sample)
   end
 
   test "should get index" do

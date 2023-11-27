@@ -1,7 +1,7 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  code: MyString
+87104:
+  code: 87104
 
-two:
-  code: MyString
+90210:
+  code: 90210
