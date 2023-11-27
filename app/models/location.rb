@@ -1,4 +1,5 @@
 class Location < ApplicationRecord
+  belongs_to :postal_code, optional: true
   validates :address, presence: true, uniqueness: true, if: -> { !geocode_error.nil? || !lat.nil? || !lng.nil? }
   
   geocoded_by :address, latitude: :lat, longitude: :lng
