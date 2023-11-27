@@ -12,9 +12,10 @@
 
 ActiveRecord::Schema[7.1].define(version: 2023_11_26_180756) do
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
-  create_table "locations", force: :cascade do |t|
+  create_table "locations", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.text "address"
     t.integer "postal_code"
     t.decimal "lat", precision: 10, scale: 6
