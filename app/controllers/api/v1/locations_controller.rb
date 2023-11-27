@@ -50,5 +50,5 @@ module Api
           params.require(:location).permit(:address)
         end
     end
-    end
+  end
 end

@@ -1,4 +1,5 @@
 class Location < ApplicationRecord
+  belongs_to :postal_code, optional: true
   validates :address, presence: true, uniqueness: true, if: -> { !geocode_error.nil? || !lat.nil? || !lng.nil? }
   
   geocoded_by :address, latitude: :lat, longitude: :lng
@@ -6,7 +7,7 @@ class Location < ApplicationRecord
 #
   reverse_geocoded_by :lat, :lng do |obj, results|
     if geo = results.first
-      obj.postal_code = geo.postal_code
+      obj.postal_code_id = PostalCode.find_or_create_by(code: geo.postal_code).id
     end
   end
 

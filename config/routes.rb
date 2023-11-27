@@ -3,7 +3,9 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+      resources :postal_codes
       resources :locations
+      resources :temperatures
     end
   end
 end
