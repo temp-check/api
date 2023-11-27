@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :postal_codes
   get "up" => "rails/health#show", as: :rails_health_check
 
   namespace :api do

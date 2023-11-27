@@ -6,7 +6,7 @@ class Location < ApplicationRecord
 #
   reverse_geocoded_by :lat, :lng do |obj, results|
     if geo = results.first
-      obj.postal_code = geo.postal_code
+      obj.postal_code_id = PostalCode.find_or_create_by(code: geo.postal_code).id
     end
   end
 
