@@ -3,7 +3,7 @@ require "test_helper"
 class LocationsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @location = locations([:one, :two].sample)
-    @location.address = "#{(1...1400).to_a.sample} market St SF, CA"
+    @location.address = "#{(1...700).to_a.sample} market St SF, CA"
   end
 
   test "should get index" do
@@ -40,18 +40,18 @@ class LocationsControllerTest < ActionDispatch::IntegrationTest
   test "should save invalid address with error code 404" do
     @invalid_address = locations(:invalid_address)
     assert_difference("Location.count") do
-      post api_v1_locations_url, params: { location: { address: @invalid_address.address } }, as: :json
+      post api_v1_locations_url, params: { location: { address: Faker::Address.full_address } }, as: :json
     end
 
-    assert_equal 404, Location.last.geocode_error
+    assert_equal Location::GEOCODER_ADDRESS_NOT_FOUND, Location.last.geocode_error
   end
 
   test "should save only unique invalid addresses with error code 404" do
     @invalid_address = locations(:invalid_address)
     assert_difference("Location.count") do
-      post api_v1_locations_url, params: { location: { address: @invalid_address.address } }, as: :json
+      post api_v1_locations_url, params: { location: { address: Faker::Address.full_address } }, as: :json
     end
 
-    assert_equal 404, Location.last.geocode_error
+    assert_equal Location::GEOCODER_ADDRESS_NOT_FOUND, Location.last.geocode_error
   end
 end

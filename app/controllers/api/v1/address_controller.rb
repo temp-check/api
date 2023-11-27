@@ -4,8 +4,9 @@ module Api
       def search
         @location = Location.find_or_create_by(address: params[:q])
 
-        if @location.errors.any?
-          render errors: @location.errors.full_messages, status: :unprocessable_entity
+        if @location.errors.any? || !@location.geocode_error.nil?
+          errors = @location.errors.full_messages + [@location.geocode_error]
+          render errors: errors, status: :unprocessable_entity
         else
           render json: @location.as_json(include: { postal_code: { include: :temperature } }), status: :ok
         end

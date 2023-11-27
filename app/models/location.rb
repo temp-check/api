@@ -4,7 +4,7 @@ class Location < ApplicationRecord
   
   geocoded_by :address, latitude: :lat, longitude: :lng
   after_validation :lazy_geocode, if: -> { address.present? && address_changed?}
-#
+
   reverse_geocoded_by :lat, :lng do |obj, results|
     if geo = results.first
       obj.postal_code_id = PostalCode.find_or_create_by(code: geo.postal_code).id
@@ -13,7 +13,7 @@ class Location < ApplicationRecord
 
   GEOCODER_SERVICE_UNAVAILABLE = "Geocoder Error: Please try again later.".freeze
   GEOCODER_SERVICE_INVALID_API_KEY = "Geocoder Error: Invalid API key.".freeze
-  GEOCODER_ADDRESS_NOT_FOUND = "Geocoder Error: Address not found.".freeze
+  GEOCODER_ADDRESS_NOT_FOUND = "Address not found.".freeze
   def self.search(query)
     where("address ILIKE ?", "%#{query}%")
   end
@@ -23,8 +23,8 @@ class Location < ApplicationRecord
   def lazy_geocode
     begin
       geocode
-      reverse_geocode #unless geocode_error
-      # Seemingly some invalid addresses *still* return empty lat/lng; manually raising the InvalidRequest in this case.
+      reverse_geocode
+      # If we can't geocode the address because it's invalid, we don't want to retry, otherwise present errors so user can retry
       raise Geocoder::InvalidRequest if lat.blank? || lng.blank?
     rescue SocketError
       self.errors.add(:address, GEOCODER_SERVICE_UNAVAILABLE)
@@ -35,7 +35,7 @@ class Location < ApplicationRecord
     rescue Geocoder::RequestDenied
       self.errors.add(:address, GEOCODER_SERVICE_UNAVAILABLE)
     rescue Geocoder::InvalidRequest
-      self.errors.add(:address, GEOCODER_ADDRESS_NOT_FOUND)
+      self.geocode_error = {address: GEOCODER_ADDRESS_NOT_FOUND}
     rescue Geocoder::InvalidApiKey
       self.errors.add(:address, GEOCODER_SERVICE_INVALID_API_KEY)
     rescue Geocoder::ServiceUnavailable

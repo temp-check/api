@@ -2,7 +2,7 @@ require "test_helper"
 
 class SearchControllerTest < ActionDispatch::IntegrationTest
   test "should get address" do
-    get search_address_url
+    get api_v1_address_url
     assert_response :success
   end
 end

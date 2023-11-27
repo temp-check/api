@@ -20,7 +20,7 @@ ActiveRecord::Schema[7.1].define(version: 3) do
     t.uuid "postal_code_id"
     t.decimal "lat", precision: 10, scale: 6
     t.decimal "lng", precision: 10, scale: 6
-    t.integer "geocode_error"
+    t.string "geocode_error"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["postal_code_id"], name: "index_locations_on_postal_code_id"
