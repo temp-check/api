@@ -35,7 +35,7 @@ class Location < ApplicationRecord
     rescue Geocoder::RequestDenied
       self.errors.add(:address, GEOCODER_SERVICE_UNAVAILABLE)
     rescue Geocoder::InvalidRequest
-      self.geocode_error = GEOCODER_ADDRESS_NOT_FOUND
+      self.geocode_error = {address: GEOCODER_ADDRESS_NOT_FOUND}
     rescue Geocoder::InvalidApiKey
       self.errors.add(:address, GEOCODER_SERVICE_INVALID_API_KEY)
     rescue Geocoder::ServiceUnavailable
