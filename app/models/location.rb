@@ -13,7 +13,7 @@ class Location < ApplicationRecord
 
   GEOCODER_SERVICE_UNAVAILABLE = "Geocoder Error: Please try again later.".freeze
   GEOCODER_SERVICE_INVALID_API_KEY = "Geocoder Error: Invalid API key.".freeze
-
+  GEOCODER_ADDRESS_NOT_FOUND = "Geocoder Error: Address not found.".freeze
   def self.search(query)
     where("address ILIKE ?", "%#{query}%")
   end
@@ -23,7 +23,7 @@ class Location < ApplicationRecord
   def lazy_geocode
     begin
       geocode
-      reverse_geocode
+      reverse_geocode #unless geocode_error
       # Seemingly some invalid addresses *still* return empty lat/lng; manually raising the InvalidRequest in this case.
       raise Geocoder::InvalidRequest if lat.blank? || lng.blank?
     rescue SocketError
@@ -35,7 +35,7 @@ class Location < ApplicationRecord
     rescue Geocoder::RequestDenied
       self.errors.add(:address, GEOCODER_SERVICE_UNAVAILABLE)
     rescue Geocoder::InvalidRequest
-      self.geocode_error = 404
+      self.errors.add(:address, GEOCODER_ADDRESS_NOT_FOUND)
     rescue Geocoder::InvalidApiKey
       self.errors.add(:address, GEOCODER_SERVICE_INVALID_API_KEY)
     rescue Geocoder::ServiceUnavailable
