@@ -4,7 +4,7 @@ class Location < ApplicationRecord
   
   geocoded_by :address, latitude: :lat, longitude: :lng
   after_validation :lazy_geocode, if: -> { address.present? && address_changed?}
-#
+
   reverse_geocoded_by :lat, :lng do |obj, results|
     if geo = results.first
       obj.postal_code_id = PostalCode.find_or_create_by(code: geo.postal_code).id
@@ -24,7 +24,7 @@ class Location < ApplicationRecord
     begin
       geocode
       reverse_geocode
-      # If we can't geocode the address becausde it's invalid, we don't want to retry
+      # If we can't geocode the address because it's invalid, we don't want to retry, otherwise present errors so user can retry
       raise Geocoder::InvalidRequest if lat.blank? || lng.blank?
     rescue SocketError
       self.errors.add(:address, GEOCODER_SERVICE_UNAVAILABLE)
