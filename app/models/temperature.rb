@@ -8,13 +8,19 @@ class Temperature < ApplicationRecord
   def lazily_check_forecast
     weather_api_key = Rails.application.credentials.api.weather
     url = URI("https://api.weatherapi.com/v1/forecast.json?key=#{weather_api_key}&q=#{postal_code.code}&days=10&aqi=no&alerts=no")
-    puts url
+
     http = Net::HTTP.new(url.host, url.port)
     http.use_ssl = true
 
     request = Net::HTTP::Get.new(url)
 
     response = http.request(request)
-    puts response.read_body
+    raw = response.read_body
+    parsed = JSON.parse(raw)
+    if parsed["error"]
+      self.forecast = parsed["error"]["message"]
+    else
+      self.forecast = parsed["forecast"]["forecastday"].map { |day| { "date": day["date"], "max_f": day["day"]["maxtemp_f"], "min_f": day["day"]["mintemp_f"], "max_c": day["day"]["maxtemp_c"], "min_c": day["day"]["mintemp_c"], "icon": day["day"]["condition"]["icon"].gsub("//","https://") } }
+    end
   end
 end
