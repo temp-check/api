@@ -17,7 +17,7 @@ ActiveRecord::Schema[7.1].define(version: 3) do
 
   create_table "locations", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.text "address"
-    t.bigint "postal_code_id"
+    t.uuid "postal_code_id"
     t.decimal "lat", precision: 10, scale: 6
     t.decimal "lng", precision: 10, scale: 6
     t.integer "geocode_error"
@@ -40,5 +40,6 @@ ActiveRecord::Schema[7.1].define(version: 3) do
     t.index ["postal_code_id"], name: "index_temperatures_on_postal_code_id"
   end
 
+  add_foreign_key "locations", "postal_codes"
   add_foreign_key "temperatures", "postal_codes"
 end

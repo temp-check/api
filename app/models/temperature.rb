@@ -6,6 +6,8 @@ class Temperature < ApplicationRecord
   after_validation :lazy_refresh, if: -> { stale? }
 
   def lazy_refresh
+    return unless stale?
+
     weather_api_key = Rails.application.credentials.api.weather
     url = URI("https://api.weatherapi.com/v1/forecast.json?key=#{weather_api_key}&q=#{postal_code.code}&days=10&aqi=no&alerts=no")
 
@@ -37,7 +39,7 @@ class Temperature < ApplicationRecord
   private
 
   def stale?
-    updated_at && updated_at < 30.minutes.ago || !api_error.nil?
+    updated_at.nil? || (updated_at < 30.minutes.ago || !api_error.nil?)
   end
 
 end
