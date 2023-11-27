@@ -1,6 +1,6 @@
 class CreateLocations < ActiveRecord::Migration[7.1]
   def change
-    create_table :locations do |t|
+    create_table :locations, id: :uuid do |t|
       t.text :address
       t.integer :postal_code
       t.decimal :lat, precision: 10, scale: 6
