@@ -4,11 +4,11 @@ module Api
       before_action :set_location, only: %i[ show update destroy ]
 
       # GET /api/v1/locations
-      # def index
-      #   @locations = Location.all
+      def index
+        @locations = Location.all
 
-      #   render json: @locations
-      # end
+        render json: @locations
+      end
 
       # GET /api/v1/locations/1
       def show
