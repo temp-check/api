@@ -3,6 +3,12 @@ class Location < ApplicationRecord
   
   geocoded_by :address, latitude: :lat, longitude: :lng
   after_validation :lazy_geocode, if: -> { address.present? && address_changed?}
+#
+  reverse_geocoded_by :lat, :lng do |obj, results|
+    if geo = results.first
+      obj.postal_code = geo.postal_code
+    end
+  end
 
   GEOCODER_SERVICE_UNAVAILABLE = "Geocoder Error: Please try again later.".freeze
   GEOCODER_SERVICE_INVALID_API_KEY = "Geocoder Error: Invalid API key.".freeze
@@ -15,8 +21,8 @@ class Location < ApplicationRecord
 
   def lazy_geocode
     begin
-      
       geocode
+      reverse_geocode
       # Seemingly some invalid addresses *still* return empty lat/lng; manually raising the InvalidRequest in this case.
       raise Geocoder::InvalidRequest if lat.blank? || lng.blank?
     rescue SocketError
