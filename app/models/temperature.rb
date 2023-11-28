@@ -6,6 +6,7 @@ class Temperature < ApplicationRecord
   after_validation :lazy_refresh, if: -> { stale? }
 
   def lazy_refresh
+    self.update_attribute(:cached, stale?)
     return unless stale?
 
     weather_api_key = Rails.application.credentials.api.weather
