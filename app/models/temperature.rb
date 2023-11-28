@@ -1,5 +1,3 @@
-require 'uri'
-require 'net/http'
 class Temperature < ApplicationRecord
   belongs_to :postal_code
   validates :postal_code_id, presence: true, uniqueness: true

@@ -13,16 +13,14 @@ ENV RAILS_ENV="production" \
   BUNDLE_PATH="/usr/local/bundle" \
   BUNDLE_WITHOUT="development"
 
-
 # Throw-away build stage to reduce size of final image
 FROM base as build
 
+# Implementing retry logic for apt-get commands in build stage
 RUN apt-get clean && \
   rm -rf /var/lib/apt/lists/* && \
-  apt-get update -qq && \
-  apt-get install --no-install-recommends -y --fix-missing build-essential git pkg-config libvips
-
-
+  for i in {1..5}; do apt-get update -qq && break || sleep 15; done && \
+  for i in {1..5}; do apt-get install --no-install-recommends -y --fix-missing build-essential git pkg-config libvips && break || sleep 15; done
 
 # Install application gems
 COPY Gemfile Gemfile.lock ./
@@ -32,13 +30,12 @@ RUN bundle install && \
 # Copy application code
 COPY . .
 
-
 # Final stage for app image
 FROM base
 
-# Install packages needed for deployment
-RUN apt-get update -qq && \
-  apt-get install --no-install-recommends -y curl libsqlite3-0 && \
+# Retry logic for apt-get commands in final stage
+RUN for i in {1..5}; do apt-get update -qq && break || sleep 15; done && \
+  for i in {1..5}; do apt-get install --no-install-recommends -y curl && break || sleep 15; done && \
   rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Copy built artifacts: gems, application
