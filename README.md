@@ -26,6 +26,10 @@ All responses are JSON and follow the following format:
 
 1. Clone this repo
 
+```bash
+git clone git@github.com:temp-check/api.git
+```
+
 2. You'll need to setup a [WeatherAPI](https://www.weatherapi.com/my/) account and get an API key. Once you have your API key, copy the example `.example-env` file to `.env`
 
 ```bash
@@ -34,15 +38,21 @@ cp .example-env .env
 
 and update `WEATHER_API_KEY` value with your API key.
 
-3. Start the app
+3. Bundle the gems
+
+```bash
+bundle install
+```
+
+4. Start the app
   
   ```bash
 rails s
 ```
 
-4. The app should now be running at http://localhost:3000
+5. The app should now be running at http://localhost:3000
 
-5. You can now make requests to the API. For example:
+6. You can now make requests to the API. For example:
 
 ```bash
 curl -X GET \
