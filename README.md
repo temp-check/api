@@ -50,15 +50,15 @@ bundle install
 rails db:create db:migrate
 ```
 
-4. Start the app
+5. Start the app
   
 ```bash
 rails s
 ```
 
-5. The app should now be running at http://localhost:3000
+6. The app should now be running at http://localhost:3000
 
-6. You can now make requests to the API. For example:
+7. You can now make requests to the API. For example:
 
 ```bash
 curl -X GET \
