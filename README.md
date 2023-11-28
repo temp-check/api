@@ -22,7 +22,7 @@ All responses are JSON and follow the following format:
 - [Docker](https://docs.docker.com/get-docker/)
 - [Docker Compose](https://docs.docker.com/compose/install/)
 
-## Get Started
+## Get Started (Locally)
 
 1. Clone this repo
 
@@ -32,8 +32,23 @@ All responses are JSON and follow the following format:
 cp .example-env .env
 ```
 
-Then update `WEATHER_API_KEY` value with your API key.
+and update `WEATHER_API_KEY` value with your API key.
 
-3. Build the docker image
+3. Start the app
+  
+  ```bash
+rails s
+```
 
+4. The app should now be running at http://localhost:3000
 
+5. You can now make requests to the API. For example:
+
+```bash
+curl -X GET \
+  'http://localhost:3000/api/v1/address?q=87104' \
+  -H 'Accept: application/json' \
+  -H 'Content-Type: application/json'
+```
+
+Or just use a browser and navigate to [http://localhost:3000/api/v1/address?q=87104](http://localhost:3000/api/v1/address?q=87104)
