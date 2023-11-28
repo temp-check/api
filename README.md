@@ -44,9 +44,15 @@ and update `WEATHER_API_KEY` value with your API key.
 bundle install
 ```
 
+4. Create & migrate the development database
+
+```bash
+rails db:create db:migrate
+```
+
 4. Start the app
   
-  ```bash
+```bash
 rails s
 ```
 
