@@ -7,7 +7,7 @@ class Temperature < ApplicationRecord
 
   def lazy_refresh
     if stale?
-      weather_api_key = Rails.application.credentials.api.weather
+      weather_api_key = Rails.application.credentials.api.weather || ENV["WEATHER_API_KEY"]
       url = URI("https://api.weatherapi.com/v1/forecast.json?key=#{weather_api_key}&q=#{postal_code.code}&days=10&aqi=no&alerts=no")
 
       http = Net::HTTP.new(url.host, url.port)

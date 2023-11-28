@@ -16,6 +16,6 @@ test:
 
 production:
   <<: *default
-  database: temp_check_production
-  username: temp_check_production_username
-  password: <%= ENV['TEMP_CHECK_DATABASE_PASSWORD'] %>
+  database: <%= ENV['POSTGRES_DB'] %>
+  username: <%= ENV['POSTGRES_USER'] %>
+  password: <%= ENV['POSTGRES_PASSWORDs'] %>
