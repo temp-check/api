@@ -35,6 +35,7 @@ ActiveRecord::Schema[7.1].define(version: 3) do
   create_table "temperatures", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.json "forecast"
     t.uuid "postal_code_id", null: false
+    t.boolean "cached", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["postal_code_id"], name: "index_temperatures_on_postal_code_id"

@@ -25,6 +25,7 @@ class Temperature < ApplicationRecord
     
     else
       self.forecast = parsed["forecast"]["forecastday"].map { |day| { "date": day["date"], "max_f": day["day"]["maxtemp_f"], "min_f": day["day"]["mintemp_f"], "max_c": day["day"]["maxtemp_c"], "min_c": day["day"]["mintemp_c"], "icon": day["day"]["condition"]["icon"].gsub("//","https://") } }
+      self.cached = false
     end
   end
 

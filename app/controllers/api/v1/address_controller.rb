@@ -9,6 +9,7 @@ module Api
           render errors: errors, status: :unprocessable_entity
         else
           render json: @location.as_json(include: { postal_code: { include: :temperature } }), status: :ok
+          @location.postal_code.temperature.cached.update_attribute(:cached, true)
         end
       end
     end
