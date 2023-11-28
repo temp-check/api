@@ -6,27 +6,28 @@ class Temperature < ApplicationRecord
   after_validation :lazy_refresh, if: -> { stale? }
 
   def lazy_refresh
-    self.update_attribute(:cached, stale?)
-    return unless stale?
+    if stale?
+      weather_api_key = Rails.application.credentials.api.weather
+      url = URI("https://api.weatherapi.com/v1/forecast.json?key=#{weather_api_key}&q=#{postal_code.code}&days=10&aqi=no&alerts=no")
 
-    weather_api_key = Rails.application.credentials.api.weather
-    url = URI("https://api.weatherapi.com/v1/forecast.json?key=#{weather_api_key}&q=#{postal_code.code}&days=10&aqi=no&alerts=no")
+      http = Net::HTTP.new(url.host, url.port)
+      http.use_ssl = true
 
-    http = Net::HTTP.new(url.host, url.port)
-    http.use_ssl = true
+      request = Net::HTTP::Get.new(url)
 
-    request = Net::HTTP::Get.new(url)
+      response = http.request(request)
+      raw = response.read_body
+      parsed = JSON.parse(raw)
 
-    response = http.request(request)
-    raw = response.read_body
-    parsed = JSON.parse(raw)
-
-    if parsed["error"]
-      self.forecast = parsed
-    
+      if parsed["error"]
+        self.forecast = parsed
+      
+      else
+        self.forecast = parsed["forecast"]["forecastday"].map { |day| { "date": day["date"], "max_f": day["day"]["maxtemp_f"], "min_f": day["day"]["mintemp_f"], "max_c": day["day"]["maxtemp_c"], "min_c": day["day"]["mintemp_c"], "icon": day["day"]["condition"]["icon"].gsub("//","https://") } }
+        self.update_attribute(:cached, false)
+      end
     else
-      self.forecast = parsed["forecast"]["forecastday"].map { |day| { "date": day["date"], "max_f": day["day"]["maxtemp_f"], "min_f": day["day"]["mintemp_f"], "max_c": day["day"]["maxtemp_c"], "min_c": day["day"]["mintemp_c"], "icon": day["day"]["condition"]["icon"].gsub("//","https://") } }
-      self.cached = false
+      self.update_attribute(:cached, true)
     end
   end
 
@@ -41,7 +42,7 @@ class Temperature < ApplicationRecord
   private
 
   def stale?
-    updated_at.nil? || (updated_at < 30.minutes.ago || !api_error.nil?)
+    updated_at && updated_at >= 30.minutes.ago
   end
 
 end
