@@ -68,3 +68,29 @@ curl -X GET \
 ```
 
 Or just use a browser and navigate to [http://localhost:3000/api/v1/address?q=87104](http://localhost:3000/api/v1/address?q=87104)
+
+## Endpoints
+
+### GET /api/v1/address
+
+#### Query Parameters
+
+| Name | Type | Description |
+| --- | --- | --- |
+| q | string | The address or zipcode to geocode |
+
+#### Example Request
+
+```bash
+
+curl -X GET \
+  'http://localhost:3000/api/v1/address?q=cupertino,ca' \
+  -H 'Accept: application/json' \
+  -H 'Content-Type: application/json'
+```
+
+#### Example Response
+
+```json
+{"data":{"id":"09eb1a68-8708-40f7-a3de-4e397257cd09","address":"cupertino,ca","postal_code_id":"cea2a725-8d07-4a3a-a841-74a9caa3d548","lat":"37.322893","lng":"-122.03229","geocode_error":null,"created_at":"2023-11-28T18:56:23.010Z","updated_at":"2023-11-28T18:56:23.010Z","postal_code":{"id":"cea2a725-8d07-4a3a-a841-74a9caa3d548","code":"95014","created_at":"2023-11-28T16:36:26.924Z","updated_at":"2023-11-28T16:36:26.924Z","temperature":{"id":"a4b53d6f-0e09-4323-92e5-52f1ab595e0f","forecast":[{"date":"2023-11-28","max_f":66.4,"min_f":44.6,"max_c":19.1,"min_c":7.0,"icon":"https://cdn.weatherapi.com/weather/64x64/day/113.png"},{"date":"2023-11-29","max_f":61.5,"min_f":46.8,"max_c":16.4,"min_c":8.2,"icon":"https://cdn.weatherapi.com/weather/64x64/day/176.png"},{"date":"2023-11-30","max_f":60.1,"min_f":43.7,"max_c":15.6,"min_c":6.5,"icon":"https://cdn.weatherapi.com/weather/64x64/day/119.png"},{"date":"2023-12-01","max_f":59.2,"min_f":45.7,"max_c":15.1,"min_c":7.6,"icon":"https://cdn.weatherapi.com/weather/64x64/day/113.png"},{"date":"2023-12-02","max_f":60.1,"min_f":46.7,"max_c":15.6,"min_c":8.2,"icon":"https://cdn.weatherapi.com/weather/64x64/day/116.png"},{"date":"2023-12-03","max_f":63.0,"min_f":47.0,"max_c":17.2,"min_c":8.3,"icon":"https://cdn.weatherapi.com/weather/64x64/day/116.png"},{"date":"2023-12-04","max_f":65.2,"min_f":50.4,"max_c":18.5,"min_c":10.2,"icon":"https://cdn.weatherapi.com/weather/64x64/day/113.png"},{"date":"2023-12-05","max_f":67.4,"min_f":50.7,"max_c":19.7,"min_c":10.4,"icon":"https://cdn.weatherapi.com/weather/64x64/day/122.png"},{"date":"2023-12-06","max_f":66.5,"min_f":51.3,"max_c":19.2,"min_c":10.7,"icon":"https://cdn.weatherapi.com/weather/64x64/day/113.png"},{"date":"2023-12-07","max_f":66.9,"min_f":48.9,"max_c":19.4,"min_c":9.4,"icon":"https://cdn.weatherapi.com/weather/64x64/day/113.png"}],"postal_code_id":"cea2a725-8d07-4a3a-a841-74a9caa3d548","cached":true,"created_at":"2023-11-28T16:36:26.937Z","updated_at":"2023-11-28T16:36:27.910Z"}}},"errors":[]}
+```
