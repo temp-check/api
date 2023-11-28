@@ -77,7 +77,7 @@ Or just use a browser and navigate to [http://localhost:3000/api/v1/address?q=87
 
 | Name | Type | Description |
 | --- | --- | --- |
-| q | string | The address or zipcode to geocode |
+| q | string | The address or zipcode to geocode & return a 10-day forecast for |
 
 #### Example Request
 
