@@ -16,6 +16,6 @@ test:
 
 production:
   <<: *default
-  database: <%= ENV['TEMP_CHECK_DATABASE'] %>
-  username: <%= ENV['TEMP_CHECK_DATABASE_USER'] %>
-  password: <%= ENV['TEMP_CHECK_DATABASE_PASSWORD'] %>
+  database: <%= ENV['POSTGRES_DB'] %>
+  username: <%= ENV['POSTGRES_USER'] %>
+  password: <%= ENV['POSTGRES_PASSWORDs'] %>
