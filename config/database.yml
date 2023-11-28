@@ -16,6 +16,6 @@ test:
 
 production:
   <<: *default
-  database: temp_check_production
-  username: temp_check_production_username
+  database: <%= ENV['TEMP_CHECK_DATABASE'] %>
+  username: <%= ENV['TEMP_CHECK_DATABASE_USER'] %>
   password: <%= ENV['TEMP_CHECK_DATABASE_PASSWORD'] %>
