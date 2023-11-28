@@ -58,17 +58,6 @@ rails s
 
 6. The app should now be running at http://localhost:3000
 
-7. You can now make requests to the API. For example:
-
-```bash
-curl -X GET \
-  'http://localhost:3000/api/v1/address?q=87104' \
-  -H 'Accept: application/json' \
-  -H 'Content-Type: application/json'
-```
-
-Or just use a browser and navigate to [http://localhost:3000/api/v1/address?q=87104](http://localhost:3000/api/v1/address?q=87104)
-
 ## Endpoints
 
 ### GET /api/v1/address
