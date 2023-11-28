@@ -17,18 +17,11 @@ ENV RAILS_ENV="production" \
 # Throw-away build stage to reduce size of final image
 FROM base as build
 
-# Clear apt cache
 RUN apt-get clean && \
   rm -rf /var/lib/apt/lists/* && \
-  apt-get update -qq
-
-
-# Install packages needed to build gems
-# RUN apt-get update -qq --fix-missing \
-#   && apt-get install -y --no-install-recommends build-essential git pkg-config
-
-RUN apt-get update -qq --fix-missing && \
+  apt-get update -qq && \
   apt-get install --no-install-recommends -y --fix-missing build-essential git pkg-config libvips
+
 
 
 # Install application gems
